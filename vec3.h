@@ -46,6 +46,14 @@ public:
         *this *= 1/k;
         return *this;
     }
+
+    inline static Vec3 random() {
+        return {random_double(), random_double(), random_double()};
+    }
+
+    inline static Vec3 random(double min, double max) {
+        return {random_double(min, max), random_double(min, max), random_double(min, max)};
+    }
 };
 
 using point3 = Vec3;
@@ -93,4 +101,12 @@ inline Vec3 cross(const Vec3& vec1, const Vec3& vec2) {
 
 inline Vec3 unit_vector(Vec3 vec) {
     return vec / vec.length();
+}
+
+Vec3 random_in_unit_sphere() {
+    while (true) {
+        auto p{Vec3::random(-1, 1)};
+        if (p.length_squared() >= 1) continue;
+        return p;
+    }
 }
