@@ -54,6 +54,11 @@ public:
     inline static Vec3 random(double min, double max) {
         return {random_double(min, max), random_double(min, max), random_double(min, max)};
     }
+
+    bool near_zero() const {
+        const auto s{1e-8};
+        return (fabs(xyz[0]) < s) && (fabs(xyz[1]) < s) && (fabs(xyz[2]) < s);
+    }
 };
 
 using point3 = Vec3;
@@ -119,4 +124,8 @@ Vec3 random_in_hemisphere(const Vec3 normal) {
     Vec3 in_unit_sphere{random_in_unit_sphere()};
     if (dot(normal, in_unit_sphere) > 0.0) return in_unit_sphere;
     else return -in_unit_sphere;
+}
+
+Vec3 reflect(const Vec3& v, const Vec3& n) {
+    return v - 2 * dot(v, n) * n;
 }

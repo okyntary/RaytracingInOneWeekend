@@ -1,10 +1,13 @@
 #pragma once
 
-#include "ray.h"
+#include "rtconstants.h"
+
+class Material;
 
 struct Hit_Record {
     point3 p;
     Vec3 normal;
+    shared_ptr<Material> mat_ptr;
     double t;
     bool front_face;
 
