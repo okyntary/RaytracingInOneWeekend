@@ -13,17 +13,18 @@
 color ray_color(const Ray& ray, const Hittable& world, int depth) {
     Hit_Record rec;
 
+    // std::cerr << "Depth is " << depth << '\n';
     if (depth <= 0) {
-        return color(0.0, 0.0, 0.0);
+        return {0.0, 0.0, 0.0};
     }
 
-    if (world.hit(ray, 0, infinity, rec)) {
-        point3 target{rec.p + rec.normal + random_in_unit_sphere()};
+    if (world.hit(ray, 0.001, infinity, rec)) {
+        point3 target{rec.p + rec.normal + random_in_hemisphere(rec.normal)};
         return 0.5 * ray_color({rec.p, target - rec.p}, world, depth - 1);
     }
 
     Vec3 unit_direction{unit_vector(ray.direction())};
-    auto t = 0.5 * (unit_direction.y() + 1.0);
+    auto t{0.5 * (unit_direction.y() + 1.0)};
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
 
