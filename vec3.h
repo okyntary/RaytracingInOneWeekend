@@ -15,6 +15,10 @@ public:
         return std::sqrt(xyz[0] * xyz[0] + xyz[1] * xyz[1] + xyz[2] * xyz[2]);
     }
 
+    const double length_squared() const {
+        return xyz[0] * xyz[0] + xyz[1] * xyz[1] + xyz[2] * xyz[2];
+    }
+
     const double x() const {return xyz[0];}
     const double y() const {return xyz[1];}
     const double z() const {return xyz[2];}
